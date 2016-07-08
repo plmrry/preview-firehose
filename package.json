@@ -29,5 +29,8 @@
   },
   "scripts": {
     "test": "node_modules/vows/bin/vows"
+  },
+  "dependencies": {
+    "request": "^2.72.0"
   }
 }
