@@ -1,30 +1,29 @@
-<!--
-
-======================================================
-
-THIS IS A GENERATED TEMPLATE FILE. DO NOT EDIT.
-
-======================================================
-
--->
-<!-- this is generated from src/style.css -->
-<style>
+/* Fix spacing at top of story */
 .has-top-ad .story.theme-interactive,
 .has-ribbon .story.theme-interactive {
   margin-top: 10px;
 }
+
+/* Fix comments button margin */
 .story.theme-interactive .comments-button.theme-kicker {
   margin-top: 0;
 }
+
+/* Get rid of border under intro and share tools on mobile */
 .page-interactive-default .story.theme-main .story-header {
   border-bottom: none;
 }
+
+/* Pad out the kicker/sharetool space */
 .story.theme-interactive .story-meta .kicker {
   margin-bottom: 22px;
 }
+
 .viewport-medium-10 .story.theme-interactive .story-meta .kicker {
   margin-bottom: 24px;
 }
+
+/* Override the moving sharetools on mobile */
 .story.theme-interactive .story-header .story-meta .kicker-container .sharetools {
   position: relative;
   left: auto;
@@ -34,17 +33,24 @@ THIS IS A GENERATED TEMPLATE FILE. DO NOT EDIT.
   float: right;
   clear: none;
 }
+
+/* Maintain the proper space with the section name and kicker next to share tools */
 .story.theme-interactive .story-header .story-meta .interactive-kicker {
   float: left;
   width: 65%;
   display: inline-block;
 }
+
+/* Gets rid of the extra space under the intro that puts too much space there in mobile and desktop */
 .page-interactive-default .story.theme-main .story-header {
   margin-bottom: 0;
 }
+
 .page-interactive-default .story.theme-main .story-header .story-meta {
   margin-bottom: 10px;
 }
+
+/*Fixes styling on share tools at bottom of minimal interactives*/
 .story.theme-minimal .sharetools.layout-horizontal{
   width:auto;
   margin-top:11px;
@@ -67,19 +73,23 @@ THIS IS A GENERATED TEMPLATE FILE. DO NOT EDIT.
 .story.theme-minimal .sharetools.layout-horizontal .sharetool a:hover {
   background-color: transparent;  
 }
-</style>
 
-<div id="g-graphic" data-preview-slug="2016-07-08-preview-firehose-hp">
-  <h1>hello world</h1>
-</div>
+/* uncomment to fix related content and footer layout on max_width: 720 pages */
+/*
+.related-coverage {
+  max-width: 720px;
+}
 
-<script>
-  var _gaq = _gaq || [];
-  define('_nytg/2016-07-08-preview-firehose-hp/assets', function() { return '_assets/'; });
-  define('_nytg/2016-07-08-preview-firehose-hp/big-assets', function() { return '_big_assets/'; });
+.viewport-medium-30 .page-footer nav ul,
+.viewport-medium-50 .page-footer nav ul {
+  margin-left: 28px;
+}
 
-  define('shared/page/tech-jobs', function() { });
-  require(['foundation/main'], function() {
-    require(['_assets/build.js']); // generated from src/script.js
-  });
-</script>
+.viewport-medium-30 .page-footer nav.last-nav {
+  float: none;
+}
+
+.viewport-medium-30 .page-footer nav.last-nav ul {
+  margin-left: 239px;
+}
+*/
