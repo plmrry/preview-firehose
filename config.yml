@@ -1,7 +1,7 @@
 ---
 # CONTENT
-headline: Untitled Graphic
-leadin: Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+headline: Facebook Live Firehose
+leadin: FB Live Firehose
 byline: By THE NEW YORK TIMES
 credit:
 sources:
@@ -19,17 +19,17 @@ show_in_compatible_apps: 'yes'   # 'yes', 'yesDoNotEmbed', 'no'
 
 # PUBLISH SETTINGS
 publish_system: scoop            # scoop, scoop_freeform
-environment: production          # production, staging
+environment: staging          # production, staging
 scoop_publish_fields: true
 
 # SCOOP ASSET KEY
-# scoop_asset_id:
-# scoop_slug:
-# scoop_username:
-# scoop_external_edit_key:
+scoop_username: paul.murray
+scoop_slug: facebook-live-firehose
+scoop_asset_id: 100000004444909
+scoop_external_edit_key: V0YYrMTbDlLfmDyi7YsOftvvfntYiIOvzOn4DkqNyTkJZD4SOZCKwhGORsWVVrxz
 
 # PREVIEW SETTINGS
-page_template: hp-bcol-photospot-simple # hp-acol # hp-abspan     # nyt5-article-embed, local:index, hp-bcol-photospot, hp-acol
+page_template: nyt5-blank # mobileweb-article-embed  # nyt5-app # mobileweb-article-embed # hp-acol # hp-abspan     # nyt5-article-embed, local:index, hp-bcol-photospot, hp-acol
 display_style: standard          # standard, blank or minimal (blank and minimal must use page_template: local:index)
 # section_name: U.S.             # Upshot, Magazine (must use page_template: local:index)
 # display_overrides:
@@ -50,10 +50,10 @@ display_style: standard          # standard, blank or minimal (blank and minimal
 
 # WEB UPDATES
 # Disable this to prevent updates and republishing via the web
-make_cmd: download
+# make_cmd: download
 
 # DATA LOADING
-# load_data_manually: true       # If true, run 'make download' to get data
+load_data_manually: true       # If true, run 'make download' to get data
 # data_vault:
 #   fruits: 908
 # Put your Google Spreadsheet in the "Preview docs" folder
