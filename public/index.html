@@ -1,21 +1,15 @@
 <style>
 /* line 2, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.intrinsic-wrapper.loaded {
+.fh-intrinsic-wrapper.loaded {
   position: relative;
   padding-top: 66%;
 }
 /* line 7, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.intrinsic-wrapper.closed {
+.fh-intrinsic-wrapper.closed {
   display: none;
 }
 
-/* line 11, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-body.closed {
-  height: 0px;
-  display: inline;
-}
-
-/* line 15, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+/* line 12, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
 #firehose-container {
   font-family: "nyt-franklin", arial, helvetica, sans-serif;
   font-style: normal;
@@ -26,8 +20,9 @@ body.closed {
   text-align: center;
   overflow: visible;
   background: transparent;
+  /*820*/
 }
-/* line 27, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+/* line 24, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
 #firehose-container.open {
   top: 0;
   left: 0;
@@ -35,21 +30,19 @@ body.closed {
   position: absolute;
   width: 100%;
 }
-/* line 35, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+/* line 32, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
 #firehose-container.closed {
   display: none;
 }
-
-/* line 50, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.wc-firehose {
+/* line 37, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .wc-firehose {
   height: 100%;
   color: #666;
   margin: 0 auto;
   position: relative;
 }
-
-/* line 56, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.wc-firehose img {
+/* line 43, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .wc-firehose img {
   width: 100%;
   height: auto;
   position: absolute;
@@ -58,18 +51,16 @@ body.closed {
   left: 0;
   bottom: 0;
 }
-
-/* line 65, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.photo-container {
+/* line 52, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .photo-container {
   position: absolute;
   top: 0px;
   right: 60px;
   bottom: 0px;
   left: 0px;
 }
-
-/* line 72, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#photo1, #photo2, .placeholder {
+/* line 59, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #photo1, #firehose-container #photo2, #firehose-container .fh-placeholder {
   width: 100%;
   height: 95%;
   position: absolute;
@@ -80,80 +71,67 @@ body.closed {
   opacity: 0;
   transition: opacity .5s linear, background-color .5s;
 }
-
-/* line 83, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.photo {
+/* line 70, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .photo {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-
-/* line 89, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.wc-firehose h6 {
+/* line 76, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .wc-firehose h6 {
   font-family: nyt-franklin, "nyt-franklin", arial, helvetica, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #666;
   font-weight: normal;
 }
-
+/* line 83, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #closed {
+  display: none;
+}
+/* line 86, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #open {
+  display: block;
+}
+/* line 89, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .closed #closed {
+  display: block;
+}
+/* line 92, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .closed #open {
+  display: none;
+}
 /* line 96, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#closed {
-  display: none;
+#firehose-container .closed header {
+  display: block;
 }
-
 /* line 99, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#open {
+#firehose-container .closed header h1 a {
   display: block;
 }
-
 /* line 102, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed #closed {
-  display: block;
+#firehose-container .closed header h2 {
+  display: none;
 }
-
 /* line 105, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed #open {
+#firehose-container .closed header ul {
   display: none;
 }
-
-/* line 109, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed header {
-  display: block;
-}
-
-/* line 112, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed header h1 a {
-  display: block;
-}
-
-/* line 115, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed header h2 {
-  display: none;
-}
-
-/* line 118, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed header ul {
-  display: none;
-}
-
-/* line 124, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.photo-container {
+/* line 111, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .photo-container {
   position: absolute;
   top: 0px;
   right: 0px;
 }
-
-/* line 130, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.photo {
+/* line 117, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .photo {
   height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-
-/* line 136, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.credit {
+/* line 123, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .credit {
   font-family: nyt-franklin, "nyt-franklin", arial, helvetica, sans-serif;
   font-size: 0.5625rem;
   line-height: 18px;
@@ -164,17 +142,15 @@ body.closed {
   text-align: right;
   display: block;
 }
-
-/* line 208, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.closed {
+/* line 195, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .closed {
   background-image: url("static.gif");
   position: relative;
   height: 100%;
   overflow: hidden;
 }
-
-/* line 214, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#staticbars {
+/* line 201, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #staticbars {
   z-index: 0;
   height: 450px;
   position: absolute;
@@ -190,122 +166,107 @@ body.closed {
   animation-iteration-count: 3;
   -webkit-animation-iteration-count: 3;
 }
-
-/* line 230, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#staticbars hr {
+/* line 217, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #staticbars hr {
   border: none;
   background: rgba(255, 255, 255, 0.03);
   box-shadow: 0 10px 10px rgba(255, 255, 255, 0.03), 0 -10px 10px rgba(255, 255, 255, 0.03);
 }
-
-/* line 235, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#staticbars hr.largebar {
+/* line 222, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #staticbars hr.largebar {
   height: 200px;
 }
-
-/* line 238, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#staticbars hr.smallbar {
+/* line 225, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #staticbars hr.smallbar {
   margin-top: 140px;
   height: 100px;
 }
-
-/* line 242, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.loaded #staticbars {
+/* line 229, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .loaded #staticbars {
   top: 100%;
 }
-
 @media screen and (max-width: 1090px) {
-  /* line 247, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  header ul li.live span {
+  /* line 234, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container header ul li.live span {
     display: none;
   }
 }
 @media screen and (max-width: 820px) {
-  /* line 254, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  header ul li.email span,
-  header ul li.facebook span,
-  header ul li.twitter span {
+  /* line 241, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container header ul li.email span,
+  #firehose-container header ul li.facebook span,
+  #firehose-container header ul li.twitter span {
     display: none;
   }
-
-  /* line 260, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.logo,
-  li.nyt,
-  li.live {
+  /* line 247, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.logo,
+  #firehose-container li.nyt,
+  #firehose-container li.live {
     top: -9px;
     position: relative;
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 269, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  header ul li.live,
-  header ul li.photos {
+  /* line 256, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container header ul li.live,
+  #firehose-container header ul li.photos {
     display: none;
   }
 }
-/*820*/
 @media screen and (max-width: 500px) {
-  /* line 279, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  #teaser-container {
+  /* line 266, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container #teaser-container {
     min-width: 100%;
     max-width: 100%;
     width: 100%;
     padding: 0;
   }
-
-  /* line 292, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  #message {
+  /* line 279, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container #message {
     width: 90%;
     margin: auto 5%;
   }
-
-  /* line 296, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  #message h3 {
+  /* line 283, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container #message h3 {
     white-space: normal;
   }
-
-  /* line 299, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  .credit {
+  /* line 286, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container .credit {
     font-size: 10px;
   }
-
-  /* line 303, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.email {
+  /* line 290, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.email {
     right: 0;
   }
-
-  /* line 307, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.twitter {
+  /* line 294, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.twitter {
     right: 40px;
   }
-
-  /* line 310, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.facebook {
+  /* line 297, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.facebook {
     right: 80px;
   }
-
-  /* line 313, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.live {
+  /* line 300, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.live {
     display: block;
   }
-
-  /* line 316, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.live span {
+  /* line 303, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.live span {
     display: inline-block !important;
   }
 }
 @media screen and (max-width: 420px) {
-  /* line 323, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  li.live span {
+  /* line 310, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container li.live span {
     display: none !important;
   }
 }
 @media print, (-webkit-min-device-pixel-ratio: 1.25), (-o-min-device-pixel-ratio: 5 / 4), (min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  /* line 329, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-  header ul li.nyt a,
-  header ul li.email a i,
-  header ul li.facebook a i,
-  header ul li.twitter a i {
+  /* line 316, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+  #firehose-container header ul li.nyt a,
+  #firehose-container header ul li.email a i,
+  #firehose-container header ul li.facebook a i,
+  #firehose-container header ul li.twitter a i {
     background-image: url(/assets/firehose_sprite_2x);
     background-repeat: no-repeat;
     -webkit-background-size: 200px 300px;
@@ -313,101 +274,76 @@ body.closed {
     background-size: 200px 300px;
   }
 }
-/* line 341, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-.title {
+/* line 328, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container .title {
   -webkit-font-smoothing: subpixel-antialiased;
   font-family: "nyt-franklin", helvetica, arial, sans-serif;
   font-weight: 700;
 }
-
-/* line 347, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-header ul li.logo a {
+/* line 334, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container header ul li.logo a {
   color: white;
   text-decoration: none;
   font-size: 1.5em;
 }
-
-/* line 359, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#photo1.active, #photo2.active, .placeholder.active {
+/* line 346, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #photo1.active, #firehose-container #photo2.active, #firehose-container .fh-placeholder.active {
   opacity: 1;
 }
-
-/* line 363, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-p#instructions {
+/* line 350, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container p#instructions {
   margin-top: 1em;
   font-size: 1.25em;
 }
-
-/* line 368, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-p#instructions strong {
+/* line 355, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container p#instructions strong {
   font-weight: 700;
 }
-
-/* line 370, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
-#teaser-container:not(.no-loader) header,
-#teaser-container:not(.no-loader) #photo1,
-#teaser-container:not(.no-loader) #photo2 {
+/* line 357, /Users/207495/Dropbox/nyt/firehose/app/assets/stylesheets/teaserfirehose.css.scss.erb */
+#firehose-container #teaser-container:not(.no-loader) header,
+#firehose-container #teaser-container:not(.no-loader) #photo1,
+#firehose-container #teaser-container:not(.no-loader) #photo2 {
   display: none;
 }
 
-body {
-  background-color: black !important;
-}
-.firehose-parent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.credit {
-  font-family: arial;
-  font-size: 1rem;
-  font-weight: 100;
-}
-
 </style>
-<div class="firehose-parent">
-  <div class="firehose-flex">
-    <div class="intrinsic-wrapper loaded open">
-      <div id="firehose-container" class="firehose-container teaser open">
-          <div id="loading">
+<div class="fh-intrinsic-wrapper loaded open">
+  <div id="firehose-container" class="firehose-container teaser open">
+      <div id="loading">
 
+      </div>
+
+      <div id="closed">
+          <div id="message">
+              <h3>The Photo Firehose<br /> has been turned off.</h3>
+              <hr />
+              <p>Thanks for tuning in.<!--  The stream will return <br/> on Tuesday, July 8th at 11 a.m.<span id="countdown"></span> --></p>
           </div>
-
-          <div id="closed">
-              <div id="message">
-                  <h3>The Photo Firehose<br /> has been turned off.</h3>
-                  <hr />
-                  <p>Thanks for tuning in.<!--  The stream will return <br/> on Tuesday, July 8th at 11 a.m.<span id="countdown"></span> --></p>
-              </div>
-              <div id="staticbars">
-                  <hr class="largebar" />
-                  <hr class="smallbar" />
-              </div>
+          <div id="staticbars">
+              <hr class="largebar" />
+              <hr class="smallbar" />
           </div>
+      </div>
 
-          <div id="open">
-              <div class="photo-container">
-                  <!-- <div id="loader">
-                  </div> -->
-                  <div class="wc-firehose">
-                      <div class='placeholder active' style='background-color: #e2e2e2;'></div>
-                      <div id="photo1">
-                       <a href="">
-                          <div class="photo"></div></a>
-                          <span class="credit"></span>
-                      </div>
-                      <div id="photo2">
-                       <a href="">
-                          <div class="photo"></div></a>
-                          <span class="credit"></span>
-                      </div>
+      <div id="open">
+          <div class="photo-container">
+              <div id="loader">
+              </div>
+              <div class="wc-firehose">
+                  <div class='fh-placeholder active' style='background-color: #e2e2e2;'></div>
+                  <div id="photo1">
+                   <a href="">
+                      <div class="photo"></div></a>
+                      <span class="credit"></span>
+                  </div>
+                  <div id="photo2">
+                   <a href="">
+                      <div class="photo"></div></a>
+                      <span class="credit"></span>
                   </div>
               </div>
           </div>
       </div>
-    </div>
   </div>
 </div>
 
@@ -3554,7 +3490,7 @@ return IC;})
             }
 
             function setImageAndCredit(image, credit) {
-              d3.selectAll('.placeholder')
+              d3.selectAll('.fh-placeholder')
                 .classed('active', false);
               var activeDiv = setActiveImage(image);
               var creditSpan = activeDiv
@@ -3566,8 +3502,8 @@ return IC;})
 
             function setActiveImage(image) {
               var src = image.src;
-              $('.intrinsic-wrapper').trigger('fh-pre-set-active-img');
-              $(".intrinsic-wrapper").addClass("loaded");
+              $('.fh-intrinsic-wrapper').trigger('fh-pre-set-active-img');
+              $(".fh-intrinsic-wrapper").addClass("loaded");
               var active = $('.wc-firehose').find('.active');
               var activeDiv;
               var inactiveDiv;
@@ -3677,10 +3613,8 @@ return IC;})
             function updateStatus(ic_singleton_payload) {
                 var status = ic_singleton_payload[0]["room_status"]
                 $("#firehose-container").removeClass();
-                $(".intrinsic-wrapper").removeClass("open closed");
-                $("body").removeClass("open closed");
-                $("body").addClass(status)
-                $(".intrinsic-wrapper").addClass(status);
+                $(".fh-intrinsic-wrapper").removeClass("open closed");
+                $(".fh-intrinsic-wrapper").addClass(status);
                 $("#firehose-container").addClass(status);
 
                 if (status == "closed" && window.frameElement) {
@@ -3696,7 +3630,7 @@ return IC;})
                     if (ratio > 1.4) {
                         var height = $(window).height();
                         var width = height * 1.4;
-                        d3.select('.intrinsic-wrapper.open')
+                        d3.select('.fh-intrinsic-wrapper.open')
                             .each(function() {
                                 d3.select(this.parentNode)
                                     .style('width', width + 'px')
@@ -3812,22 +3746,4 @@ return IC;})
 })()
 ;
 
-</script>
-<script>
-(function() {
-  require(['foundation/main'], function() {
-    require(['jquery/nyt', 'd3/3'], function($, d3) {
-      $('.credit')
-        .on('fh-post-credit-positioned', function() {
-          // var offset = parseInt(window.location.hash.substr(1));
-          // offset = isNaN(offset) ? 10 : offset;
-          // $(this).css('font-size', offset + 'px')
-          offset = 8;
-          var bottom = parseInt($(this).css('bottom'));
-          bottom -= offset;
-          $(this).css('bottom', bottom + 'px')
-        })
-    })
-  })
-}())
 </script>
