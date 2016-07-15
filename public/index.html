@@ -3414,13 +3414,13 @@ return IC;})
     require(['foundation/main'], function() {
         require(['jquery/nyt', 'underscore/nyt', 'ic', 'pourover', 'd3/3'], function($, _, IC, PourOver, d3) {
 
-          // Begin firehose v2-latest
+            // Begin firehose v2-latest
 
             window._IC_BROKER = new IC.Broker({
-              websocket_on: false,
-              polling_on: true,
-              load_url: "http://int.stg.nyt.com/data/ic/",
-              dynamic_fallback_url: "http://invisible-city.adm.stg.newsdev.nytimes.com/ic/state.json"
+                websocket_on: false,
+                polling_on: true,
+                load_url: "http://int.stg.nyt.com/data/ic/",
+                dynamic_fallback_url: "http://invisible-city.adm.stg.newsdev.nytimes.com/ic/state.json"
             });
 
             var INITIAL_DELAY = 0;
@@ -3437,28 +3437,28 @@ return IC;})
             // "cycle" mode cycles through every few seconds and shows unseen photos first
             // "latest" mode only shows the latest image, and changes when a new one is added
             if (options.mode == 'cycle') {
-              var previously_seen_filter = PourOver.makeExactFilter("previously_seen",[true, undefined]);
-              firehose_consumer.view.collection.addFilters(previously_seen_filter);
-              firehose_consumer.on('first-load', function() {
-                var items = firehose_consumer.view.collection.items;
-                if (items.length === 0) {
-                  console.error('no images in collection');
-                  return;
-                }
-                first_load_cycle_2(fade_time, INITIAL_DELAY);
-              });
+                var previously_seen_filter = PourOver.makeExactFilter("previously_seen", [true, undefined]);
+                firehose_consumer.view.collection.addFilters(previously_seen_filter);
+                firehose_consumer.on('first-load', function() {
+                    var items = firehose_consumer.view.collection.items;
+                    if (items.length === 0) {
+                        console.error('no images in collection');
+                        return;
+                    }
+                    first_load_cycle_2(fade_time, INITIAL_DELAY);
+                });
             } else if (options.mode == 'latest') {
-              /** PourOver Sort for "created_at" */
-              var created_at_sort = getCreatedAtSort();
-              firehose_consumer.view.collection.addSorts([created_at_sort]);
-              firehose_consumer.view.setSort('created_at');
-              firehose_consumer.on('first-load', function() {
-                first_load_latest_2();
-              });
+                /** PourOver Sort for "created_at" */
+                var created_at_sort = getCreatedAtSort();
+                firehose_consumer.view.collection.addSorts([created_at_sort]);
+                firehose_consumer.view.setSort('created_at');
+                firehose_consumer.on('first-load', function() {
+                    first_load_latest_2();
+                });
             }
 
-            var singleton_consumer = IC.makeSingletonConsumer(options.streamname+":control");
-            singleton_consumer.render = _.bind(function(){
+            var singleton_consumer = IC.makeSingletonConsumer(options.streamname + ":control");
+            singleton_consumer.render = _.bind(function() {
                 //What's this?
                 //The 'first-load' event doesnt emit any data, so it is a bit tricky
                 //to populate a view on inital render. The render callback is called
@@ -3481,31 +3481,31 @@ return IC;})
             // });
 
             function getCreatedAtSort() {
-              var CreatedAtSort =  PourOver.Sort.extend({
-                fn: function(a,b) {
-                  var field = "created_at";
-                  if (a[field] < b[field]) {
-                    return -1;
-                  } else if (a[field] > b[field]) {
-                    return 1;
-                  } else {
-                    return 0;
-                  }
-                }
-              });
-              return new CreatedAtSort('created_at', { associated_attrs: [ 'created_at' ] });
+                var CreatedAtSort = PourOver.Sort.extend({
+                    fn: function(a, b) {
+                        var field = "created_at";
+                        if (a[field] < b[field]) {
+                            return -1;
+                        } else if (a[field] > b[field]) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
+                return new CreatedAtSort('created_at', { associated_attrs: ['created_at'] });
             }
 
             function first_load_cycle_2(cycle_time, image_delay) {
-              var next_cid = get_next_cid();
-              loadImageAndCredit(next_cid, function (image, credit) {
-                setTimeout(function() {
-                  setImageAndCredit(image, credit);
-                }, image_delay);
-                setTimeout(function() {
-                  first_load_cycle_2(cycle_time, 0);
-                }, cycle_time);
-              });
+                var next_cid = get_next_cid();
+                loadImageAndCredit(next_cid, function(image, credit) {
+                    setTimeout(function() {
+                        setImageAndCredit(image, credit);
+                    }, image_delay);
+                    setTimeout(function() {
+                        first_load_cycle_2(cycle_time, 0);
+                    }, cycle_time);
+                });
             }
 
             // NOTE: For "cycle" or "non-latest" mode only
@@ -3514,42 +3514,43 @@ return IC;})
             // the welcome message fades away.
             // Starts recursively calling reader()
             var previous_cid = null;
+
             function first_load_latest_2() {
-              load_and_set_with_delay(INITIAL_DELAY);
-              firehose_consumer.collection.on('change', function() {
-                load_and_set_with_delay(0);
-              });
+                load_and_set_with_delay(INITIAL_DELAY);
+                firehose_consumer.collection.on('change', function() {
+                    load_and_set_with_delay(0);
+                });
             }
 
             function load_and_set_with_delay(delay) {
-              get_latest_distinct_cid(function(latest_cid) {
-                loadImageAndCredit(latest_cid, function(image, credit) {
-                  setTimeout(function() {
-                    setImageAndCredit(image, credit);
-                  }, delay);
+                get_latest_distinct_cid(function(latest_cid) {
+                    loadImageAndCredit(latest_cid, function(image, credit) {
+                        setTimeout(function() {
+                            setImageAndCredit(image, credit);
+                        }, delay);
+                    });
                 });
-              });
             }
 
             function get_latest_distinct_cid(callback) {
-              var latest_cid = get_latest_cid(firehose_consumer);
-              if (latest_cid !== previous_cid) {
-                previous_cid = latest_cid;
-                callback(latest_cid);
-              }
+                var latest_cid = get_latest_cid(firehose_consumer);
+                if (latest_cid !== previous_cid) {
+                    previous_cid = latest_cid;
+                    callback(latest_cid);
+                }
             }
 
             function loadImageAndCredit(cid, callback) {
-              var image_data = firehose_consumer.view.collection.get(cid)[0];
-              var guid = image_data["guid"];
-              var credit = image_data["nyt_credit"];
-              var src = image_url_tpl(guid);
-              var img = new Image();
-              img.src = src;
-              img.href = options.image_href;
-              $(img).on('load', function() {
-                callback(this, credit);
-              });
+                var image_data = firehose_consumer.view.collection.get(cid)[0];
+                var guid = image_data["guid"];
+                var credit = image_data["nyt_credit"];
+                var src = image_url_tpl(guid);
+                var img = new Image();
+                img.src = src;
+                img.href = options.image_href;
+                $(img).on('load', function() {
+                    callback(this, credit);
+                });
             }
 
             function setImageAndCredit(image, credit) {
@@ -3609,16 +3610,17 @@ return IC;})
             // return the most recent unseen cid (filter previously_seen is undefined), then update cid to set
             // previously_seen as 'true'. If there are no unseen_cids, then return a random seen cid.
             var seen_cids = [];
+
             function get_next_cid() {
-                var unseen_cids = firehose_consumer.view.collection.getFilteredItems("previously_seen",undefined).cids;
-                while (unseen_cids.length > 0){
+                var unseen_cids = firehose_consumer.view.collection.getFilteredItems("previously_seen", undefined).cids;
+                while (unseen_cids.length > 0) {
                     var first_cid = _.last(unseen_cids);
                     firehose_consumer.view.collection.updateItem(first_cid, "previously_seen", true);
-                    if($.inArray(first_cid, seen_cids) === -1){
+                    if ($.inArray(first_cid, seen_cids) === -1) {
                         seen_cids.push(first_cid);
                         return first_cid;
                     }
-                    unseen_cids = firehose_consumer.view.collection.getFilteredItems("previously_seen",undefined).cids;
+                    unseen_cids = firehose_consumer.view.collection.getFilteredItems("previously_seen", undefined).cids;
                 }
                 var random_cid = _.shuffle(seen_cids)[0];
                 return random_cid;
@@ -3626,51 +3628,53 @@ return IC;})
 
             // for "latest" mode only
             function get_latest_cid(_firehose_consumer) {
-              var current_items = _firehose_consumer.view.getCurrentItems();
-              check_sorted(current_items);
-              var latest_cid = _.last(current_items).cid;
-              return latest_cid;
+                var current_items = _firehose_consumer.view.getCurrentItems();
+                check_sorted(current_items);
+                var latest_cid = _.last(current_items).cid;
+                return latest_cid;
             }
 
-             // for "latest" mode only
+            // for "latest" mode only
             function check_sorted(arr) {
-              var timestamps = arr
-                .map(function(d) { return d.created_at; });
-              if (! jortSort(timestamps)) {
-                debugger;
-                throw new Error('Array is not sorted!');
-              }
+                var timestamps = arr
+                    .map(function(d) {
+                        return d.created_at; });
+                if (!jortSort(timestamps)) {
+                    debugger;
+                    throw new Error('Array is not sorted!');
+                }
             }
 
             // for "latest" mode only
             // checks if the array is sorted properly
-            function jortSort( array ) {
-              var originalArray = array.slice(0);
-              array.sort( function(a,b){return a - b} );
-              for (var i = 0; i < originalArray.length; ++i) {
-                if (originalArray[i] !== array[i]) {
-                  debugger;
-                  return false;
+            function jortSort(array) {
+                var originalArray = array.slice(0);
+                array.sort(function(a, b) {
+                    return a - b });
+                for (var i = 0; i < originalArray.length; ++i) {
+                    if (originalArray[i] !== array[i]) {
+                        debugger;
+                        return false;
+                    }
                 }
-              }
-              return true;
+                return true;
             }
 
             /*
             pxl is computed based on the devicePixelRatio as well as the width of the
             responsive image container. Choose the rendition of minimum size that exceeds the pxl value.
             */
-            function image_url_tpl(id){
+            function image_url_tpl(id) {
                 var pxl = window.devicePixelRatio * $('#photo2 .photo').width();
                 var rendition = "300";
-                if (pxl>300) rendition = "600";
-                if (pxl>600) rendition = "1024";
+                if (pxl > 300) rendition = "600";
+                if (pxl > 600) rendition = "1024";
                 // if(pxl>1024) rendition = "2048";
-                var tpl = "https://s3.amazonaws.com/int.stg.nyt.com/data/firehose/"+id+"-"+rendition+".jpg";
+                var tpl = "https://s3.amazonaws.com/int.stg.nyt.com/data/firehose/" + id + "-" + rendition + ".jpg";
                 return tpl
             }
 
-            function updateStatus(ic_singleton_payload){
+            function updateStatus(ic_singleton_payload) {
                 var status = ic_singleton_payload[0]["room_status"]
                 $("#firehose-container").removeClass();
                 $(".intrinsic-wrapper").removeClass("open closed");
@@ -3679,40 +3683,39 @@ return IC;})
                 $(".intrinsic-wrapper").addClass(status);
                 $("#firehose-container").addClass(status);
 
-                if(status == "closed" && window.frameElement){
-                  $(window.frameElement).height(5);
+                if (status == "closed" && window.frameElement) {
+                    $(window.frameElement).height(5);
                 }
             }
 
             function trigger_resize() {
-              debug('trigger resize');
-              if (d3.select('html').classed('app-interactive')) {
-                // $.post('http://696439bd.ngrok.io', "in app");
-                var ratio = $(window).width() / $(window).height();
-                if (ratio > 1.4) {
-                  var height = $(window).height();
-                  var width = height * 1.4;
-                  d3.select('.intrinsic-wrapper.open')
-                    .each(function() {
-                      d3.select(this.parentNode)
-                        .style('width', width + 'px')
-                        .style('margin', '0 auto')
-                    })
+                debug('trigger resize');
+                if (d3.select('html').classed('app-interactive')) {
+                    // $.post('http://696439bd.ngrok.io', "in app");
+                    var ratio = $(window).width() / $(window).height();
+                    if (ratio > 1.4) {
+                        var height = $(window).height();
+                        var width = height * 1.4;
+                        d3.select('.intrinsic-wrapper.open')
+                            .each(function() {
+                                d3.select(this.parentNode)
+                                    .style('width', width + 'px')
+                                    .style('margin', '0 auto')
+                            })
+                    }
+                } else {
+                    // $.post('http://696439bd.ngrok.io', "not in app");
                 }
-              }
-              else {
-                // $.post('http://696439bd.ngrok.io', "not in app");
-              }
-              require([
-                "shared/interactive/instances/app-communicator"
-              ], function(AppCommunicator) {
-                AppCommunicator.triggerResize();
-              });
+                require([
+                    "shared/interactive/instances/app-communicator"
+                ], function(AppCommunicator) {
+                    AppCommunicator.triggerResize();
+                });
             }
 
             function debug(message) {
-              console.info('%cDEBUG: ' + '%c' + message, 'color:green;', 'color:black;');
-              // foobar
+                console.info('%cDEBUG: ' + '%c' + message, 'color:green;', 'color:black;');
+                // foobar
             }
 
             // Create Share Tools
@@ -3725,18 +3728,22 @@ return IC;})
                 window.fbAsyncInit = function() {
                     // init the FB JS SDK
                     FB.init({
-                        appId      : '9869919170', // App ID from the App Dashboard
-                        status     : false, // check the login status upon init?
-                        cookie     : false, // set sessions cookies to allow your server to access the session?
-                        xfbml      : false  // parse XFBML tags on this page?
+                        appId: '9869919170', // App ID from the App Dashboard
+                        status: false, // check the login status upon init?
+                        cookie: false, // set sessions cookies to allow your server to access the session?
+                        xfbml: false // parse XFBML tags on this page?
                     });
                 };
 
                 // Load the SDK's source Asynchronously
-                (function(d, debug){
-                    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-                    if (d.getElementById(id)) {return;}
-                    js = d.createElement('script'); js.id = id; js.async = true;
+                (function(d, debug) {
+                    var js, id = 'facebook-jssdk',
+                        ref = d.getElementsByTagName('script')[0];
+                    if (d.getElementById(id)) {
+                        return; }
+                    js = d.createElement('script');
+                    js.id = id;
+                    js.async = true;
                     js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
                     ref.parentNode.insertBefore(js, ref);
                 }(document, /*debug*/ false));
@@ -3762,7 +3769,7 @@ return IC;})
                             var left = Math.round((winWidth / 2) - (width / 2));
                             var top = (winHeight > height) ? Math.round((winHeight / 2) - (height / 2)) : 0;
                             window.open("http://www.nytimes.com/mem/email-this.html?url=" + encodeURIComponent(window.location.href), 'emailThis', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-                    });
+                        });
 
                 });
 
@@ -3783,6 +3790,19 @@ return IC;})
                     window.open(target_url, 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
                 });
 
+                $(document).on("click", "a", function(e) {
+                    var dest = $(e.currentTarget).attr('href');
+
+                    if (window.location.href.match(/mobile.nytimes.com/)) {
+                        e.preventDefault();
+                        window.open(dest, "_top");
+                    } else if (window.location.href.match('.app.html')) {
+                        e.preventDefault();
+                        window.location = dest.replace(/http/, "nytinteractive");
+                    }
+                    return false;
+                });
+
             }
 
             shareTools();
@@ -3799,8 +3819,12 @@ return IC;})
     require(['jquery/nyt', 'd3/3'], function($, d3) {
       $('.credit')
         .on('fh-post-credit-positioned', function() {
+          // var offset = parseInt(window.location.hash.substr(1));
+          // offset = isNaN(offset) ? 10 : offset;
+          // $(this).css('font-size', offset + 'px')
+          offset = 8;
           var bottom = parseInt($(this).css('bottom'));
-          bottom -= 10;
+          bottom -= offset;
           $(this).css('bottom', bottom + 'px')
         })
     })
