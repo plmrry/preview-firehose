@@ -6,7 +6,7 @@ byline: By THE NEW YORK TIMES
 credit:
 sources:
 notes:
-summary:                         # `summary` is now pushed to Scoop automatically
+summary: summary                 # `summary` is now pushed to Scoop automatically
 last_updated_text:
 # related_article: true          # View Related Article link
 
