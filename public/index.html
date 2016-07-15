@@ -306,44 +306,64 @@
   display: none;
 }
 
+body {
+  background-color: black !important;
+}
+.firehose-parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.credit {
+  font-family: arial;
+  font-size: 1rem;
+  font-weight: 100;
+}
+
 </style>
-<div class="fh-intrinsic-wrapper loaded open">
-  <div id="firehose-container" class="firehose-container teaser open">
-      <div id="loading">
+<div class="firehose-parent">
+  <div class="firehose-flex">
+    <div class="fh-intrinsic-wrapper loaded open">
+      <div id="firehose-container" class="firehose-container teaser open">
+          <div id="loading">
 
-      </div>
-
-      <div id="closed">
-          <div id="message">
-              <h3>The Photo Firehose<br /> has been turned off.</h3>
-              <hr />
-              <p>Thanks for tuning in.<!--  The stream will return <br/> on Tuesday, July 8th at 11 a.m.<span id="countdown"></span> --></p>
           </div>
-          <div id="staticbars">
-              <hr class="largebar" />
-              <hr class="smallbar" />
-          </div>
-      </div>
 
-      <div id="open">
-          <div class="photo-container">
-              <div id="loader">
+          <div id="closed">
+              <div id="message">
+                  <h3>The Photo Firehose<br /> has been turned off.</h3>
+                  <hr />
+                  <p>Thanks for tuning in.<!--  The stream will return <br/> on Tuesday, July 8th at 11 a.m.<span id="countdown"></span> --></p>
               </div>
-              <div class="wc-firehose">
-                  <div class='fh-placeholder active' style='background-color: #e2e2e2;'></div>
-                  <div id="photo1">
-                   <a href="">
-                      <div class="photo"></div></a>
-                      <span class="credit"></span>
-                  </div>
-                  <div id="photo2">
-                   <a href="">
-                      <div class="photo"></div></a>
-                      <span class="credit"></span>
-                  </div>
+              <div id="staticbars">
+                  <hr class="largebar" />
+                  <hr class="smallbar" />
               </div>
           </div>
+
+          <div id="open">
+              <div class="photo-container">
+                  <!-- <div id="loader">
+                  </div> -->
+                  <div class="wc-firehose">
+                      <div class='fh-placeholder active' style='background-color: #e2e2e2;'></div>
+                      <div id="photo1">
+                       <a href="">
+                          <div class="photo"></div></a>
+                          <span class="credit"></span>
+                      </div>
+                      <div id="photo2">
+                       <a href="">
+                          <div class="photo"></div></a>
+                          <span class="credit"></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
+    </div>
   </div>
 </div>
 
@@ -359,13 +379,14 @@ var options = {
     introText: "fffsdfsdfjh",
     shareTitle: "olympics",
     shareText: "",
-    consumerName: "olytv:ticker_tape",
     streamname: "firehose:olympics",
     initial_timeout: 0,
+    image_host: "https://s3.amazonaws.com/int.stg.nyt.com/data/firehose/",
     broker: {
         load_url: "http://int.stg.nyt.com/data/ic/",
         websocket_on: true,
-        polling_on: false
+        polling_on: false,
+        fallback_url: "http://invisible-city.adm.stg.newsdev.nytimes.com/ic/state.json"
     }
 }
 
@@ -3355,8 +3376,8 @@ return IC;})
             window._IC_BROKER = new IC.Broker({
                 websocket_on: false,
                 polling_on: true,
-                load_url: "http://int.stg.nyt.com/data/ic/",
-                dynamic_fallback_url: "http://invisible-city.adm.stg.newsdev.nytimes.com/ic/state.json"
+                load_url: options.broker.load_url,
+                dynamic_fallback_url: options.broker.fallback_url
             });
 
             var INITIAL_DELAY = 0;
@@ -3522,25 +3543,25 @@ return IC;})
             }
 
             function positionCreditSpan(image, activeDiv, creditSpan) {
-              var imageRatio = image.width / image.height;
-              var divWidth = activeDiv.width();
-              var divHeight = activeDiv.height();
-              var divRatio = divWidth / divHeight;
-              var imageHeight, imageWidth, right, bottom;
-              if (imageRatio > divRatio) {
-                imageHeight = divWidth * (1 / imageRatio);
-                bottom = (divHeight - imageHeight) / 2;
-                right = 0;
-              } else {
-                bottom = 0;
-                imageWidth = divHeight * imageRatio;
-                right = ((divWidth - imageWidth) / 2);
-              }
-              creditSpan.css({
-                bottom: (bottom - 15) + 'px',
-                right: (right + 2) + 'px'
-              });
-              creditSpan.trigger('fh-post-credit-positioned');
+                var imageRatio = image.width / image.height;
+                var divWidth = activeDiv.width();
+                var divHeight = activeDiv.height();
+                var divRatio = divWidth / divHeight;
+                var imageHeight, imageWidth, right, bottom;
+                if (imageRatio > divRatio) {
+                    imageHeight = divWidth * (1 / imageRatio);
+                    bottom = (divHeight - imageHeight) / 2;
+                    right = 0;
+                } else {
+                    bottom = 0;
+                    imageWidth = divHeight * imageRatio;
+                    right = ((divWidth - imageWidth) / 2);
+                }
+                creditSpan.css({
+                    bottom: (bottom - 15) + 'px',
+                    right: (right + 2) + 'px'
+                });
+                creditSpan.trigger('fh-post-credit-positioned');
             }
 
             // return the most recent unseen cid (filter previously_seen is undefined), then update cid to set
@@ -3574,7 +3595,8 @@ return IC;})
             function check_sorted(arr) {
                 var timestamps = arr
                     .map(function(d) {
-                        return d.created_at; });
+                        return d.created_at;
+                    });
                 if (!jortSort(timestamps)) {
                     debugger;
                     throw new Error('Array is not sorted!');
@@ -3586,7 +3608,8 @@ return IC;})
             function jortSort(array) {
                 var originalArray = array.slice(0);
                 array.sort(function(a, b) {
-                    return a - b });
+                    return a - b
+                });
                 for (var i = 0; i < originalArray.length; ++i) {
                     if (originalArray[i] !== array[i]) {
                         debugger;
@@ -3606,7 +3629,8 @@ return IC;})
                 if (pxl > 300) rendition = "600";
                 if (pxl > 600) rendition = "1024";
                 // if(pxl>1024) rendition = "2048";
-                var tpl = "https://s3.amazonaws.com/int.stg.nyt.com/data/firehose/" + id + "-" + rendition + ".jpg";
+                // var tpl = "https://s3.amazonaws.com/int.stg.nyt.com/data/firehose/" + id + "-" + rendition + ".jpg";
+                var tpl = options.image_host + id + '-' + rendition + ".jpg";
                 return tpl
             }
 
@@ -3674,7 +3698,8 @@ return IC;})
                     var js, id = 'facebook-jssdk',
                         ref = d.getElementsByTagName('script')[0];
                     if (d.getElementById(id)) {
-                        return; }
+                        return;
+                    }
                     js = d.createElement('script');
                     js.id = id;
                     js.async = true;
@@ -3724,26 +3749,46 @@ return IC;})
                     window.open(target_url, 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
                 });
 
-                $(document).on("click", "a", function(e) {
-                    var dest = $(e.currentTarget).attr('href');
-
-                    if (window.location.href.match(/mobile.nytimes.com/)) {
-                        e.preventDefault();
-                        window.open(dest, "_top");
-                    } else if (window.location.href.match('.app.html')) {
-                        e.preventDefault();
-                        window.location = dest.replace(/http/, "nytinteractive");
-                    }
-                    return false;
-                });
 
             }
 
             shareTools();
+
+            //click handler for app
+            $(document).on("click", "a", function(e) {
+                var dest = $(e.currentTarget).attr('href');
+
+                if (window.location.href.match(/mobile.nytimes.com/)) {
+                    e.preventDefault();
+                    window.open(dest, "_top");
+                } else if (window.location.href.match('.app.html')) {
+                    e.preventDefault();
+                    window.location = dest.replace(/http/, "nytinteractive");
+                }
+
+            });
 
         })
     });
 })()
 ;
 
+</script>
+<script>
+(function() {
+  require(['foundation/main'], function() {
+    require(['jquery/nyt', 'd3/3'], function($, d3) {
+      $('.credit')
+        .on('fh-post-credit-positioned', function() {
+          // var offset = parseInt(window.location.hash.substr(1));
+          // offset = isNaN(offset) ? 10 : offset;
+          // $(this).css('font-size', offset + 'px')
+          offset = 8;
+          var bottom = parseInt($(this).css('bottom'));
+          bottom -= offset;
+          $(this).css('bottom', bottom + 'px')
+        })
+    })
+  })
+}())
 </script>
