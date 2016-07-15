@@ -360,6 +360,12 @@ body {
   align-items: center;
   height: 100vh;
 }
+.credit {
+  font-family: arial;
+  font-size: 1rem;
+  font-weight: 100;
+}
+
 </style>
 <div class="firehose-parent">
   <div class="firehose-flex">
@@ -3594,10 +3600,10 @@ return IC;})
                 right = ((divWidth - imageWidth) / 2);
               }
               creditSpan.css({
-
                 bottom: (bottom - 15) + 'px',
                 right: (right + 2) + 'px'
-              })
+              });
+              creditSpan.trigger('fh-post-credit-positioned');
             }
 
             // return the most recent unseen cid (filter previously_seen is undefined), then update cid to set
@@ -3788,17 +3794,16 @@ return IC;})
 
 </script>
 <script>
-// (function() {
-//   require(['foundation/main'], function() {
-//     require(['jquery/nyt', 'd3/3'], function($, d3) {
-//       // d3.select('')
-//       // console.log('i am a meat popsicle');
-//       // d3.selectAll('.intrinsic-wrapper')
-//       $('.intrinsic-wrapper')
-//         .on('fh-pre-set-active-img', function() {
-//           console.log('i am a groovy popsicle');
-//         })
-//     })
-//   })
-// }())
+(function() {
+  require(['foundation/main'], function() {
+    require(['jquery/nyt', 'd3/3'], function($, d3) {
+      $('.credit')
+        .on('fh-post-credit-positioned', function() {
+          var bottom = parseInt($(this).css('bottom'));
+          bottom -= 10;
+          $(this).css('bottom', bottom + 'px')
+        })
+    })
+  })
+}())
 </script>

@@ -1,7 +1,4 @@
 GENERATED_FILES = \
-	~/Development/keys/511847675586-dvu01fndl7cf8nvqhce6j9tuhbgt10rf.json \
-	build/style.css \
-	data \
 	public/index.html
 
 all: .gitignore .gitattributes $(GENERATED_FILES)
@@ -37,13 +34,13 @@ data:
 	mkdir -p data
 	make download
 
-public/index.html:
+src/index.html:
 	@curl http://localhost.nytimes.com:3000/projects/1/embed/fb-live > public/index.html
 
-# public/index.html: bin/render-template config.yml src/*
-# 	mkdir -p data
-# 	mkdir -p page-templates
-# 	bin/render-template -o $@
+public/index.html: bin/render-template config.yml src/index.html
+	mkdir -p data
+	mkdir -p page-templates
+	bin/render-template -o $@
 
 scoop:
 	@echo "\033[31mWARNING: Please use 'make download' instead of 'make scoop'\033[0m"
