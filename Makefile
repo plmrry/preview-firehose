@@ -35,7 +35,7 @@ data:
 	make download
 
 src/index.html:
-	@curl http://localhost.nytimes.com:3000/projects/1/embed/fb-live > public/index.html
+	@curl http://localhost.nytimes.com:3000/projects/1/embed/teaser > public/index.html
 
 public/index.html: bin/render-template config.yml src/index.html
 	mkdir -p data
